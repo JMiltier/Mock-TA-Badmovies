@@ -6,7 +6,7 @@ class Search extends React.Component {
     super(props)
     this.state = {
       showFaves: false,
-      genres: [],
+      genres: [{id: 0, name: 'All'}],
       currentGenre: 0
     };
 
@@ -20,15 +20,13 @@ class Search extends React.Component {
 
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
-    let data = [{id: 0, name: 'All'}];
     axios.get('/genres')
       .then(res => {
         res.data.forEach(genre => {
-          data.push(genre);
+          this.setState({genres: this.state.genres.concat(genre)})
         })
         this.setState({
-          genres: data,
-          currentGenre: {id: data[0].id, name: data[0].name}
+          currentGenre: this.state.genre[0]
         })
       })
       .catch(err => console.error('error in Search.jsx for get movies', err));

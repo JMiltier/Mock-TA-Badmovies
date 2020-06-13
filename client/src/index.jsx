@@ -50,10 +50,8 @@ class App extends React.Component {
     // console.log('about to save movie of id', movieId)
     this.state.movies.forEach(movie => {
       if (movie.id === movieId) {
-        var newFaves = this.state.favorites.concat(movie)
-        console.log(newFaves)
         this.setState({
-          favorites: newFaves
+          favorites: this.state.favorites.concat(movie)
         })
       }
     })
