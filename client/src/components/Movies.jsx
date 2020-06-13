@@ -12,10 +12,17 @@ class Movies extends React.Component {
     this.deleteHandle = this.deleteHandle.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({
+      movies: this.props.movies
+    })
+  }
+
   // Make an onClick for each list item. If the movies shown is the search results,
   // onClick add it to the database (do it in the main app, and pass down the function)
-  addHandle(e) {
-
+  addHandle(movieId) {
+    // console.log(movieId)
+    this.props.addFave(movieId)
   }
 
   // If you're currently showing the fave list, delete the movie instead
@@ -31,7 +38,7 @@ class Movies extends React.Component {
         {/* Make this list dynamic! */}
         {this.props.movies.map(movie => {
           return(
-            <li className="movie_item">
+            <li key={movie.id} className="movie_item" onClick={()=>{this.addHandle(movie.id)}}>
               <img src={`https://image.tmdb.org/t/p/w220_and_h330_face/${movie.poster_path}`}/>
               <div className="movie_description">
                 <h2>{movie.title}</h2>

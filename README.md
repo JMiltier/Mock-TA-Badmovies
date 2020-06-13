@@ -25,3 +25,6 @@ https://developers.themoviedb.org/3/getting-started/introduction
 --------
 
 *To start the server and start webpack check out package.json*
+
+
+*NOTES*: Not correctly setting state in Movies.jsx, hard-coded to display based on props and not state.

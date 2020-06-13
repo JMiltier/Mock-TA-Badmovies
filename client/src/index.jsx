@@ -10,8 +10,8 @@ class App extends React.Component {
   constructor(props) {
   	super(props)
   	this.state = {
-      movies: [{deway: "movies"}],
-      favorites: [{deway: "favorites"}],
+      movies: [],
+      favorites: [],
       showFaves: false
     };
 
@@ -23,16 +23,20 @@ class App extends React.Component {
     this.swapFavorites = this.swapFavorites.bind(this);
   }
 
+  componentDidMount() {
+    this.getMovies({id: 0, name: 'All'})
+  }
+
   getMovies(genre) {
     // make an axios request to your server on the GET SEARCH endpoint
     // * the genre is an object of {id: ,name: }
     // * console.log('trying to get genre', genre);
-
     axios({
       method: 'GET',
       url: '/search',
-      data: 'why'
-      })
+      params: {
+        id: genre.id
+      }})
       .then(res => {
         this.setState({
           movies: res.data
@@ -41,8 +45,18 @@ class App extends React.Component {
       .catch(err => console.error('error in index.jsx for searching movies', err));
   }
 
-  saveMovie() {
+  saveMovie(movieId) {
     // same as above but do something diff
+    // console.log('about to save movie of id', movieId)
+    this.state.movies.forEach(movie => {
+      if (movie.id === movieId) {
+        var newFaves = this.state.favorites.concat(movie)
+        console.log(newFaves)
+        this.setState({
+          favorites: newFaves
+        })
+      }
+    })
   }
 
   deleteMovie() {
@@ -63,7 +77,8 @@ class App extends React.Component {
 
         <div className="main">
           <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} getMovies={this.getMovies}/>
-          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
+          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies}
+                  showFaves={this.state.showFaves} addFave={this.saveMovie}/>
         </div>
       </div>
     );

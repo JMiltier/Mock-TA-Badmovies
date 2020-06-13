@@ -78,6 +78,7 @@ html, body, #app {
   display: flex;
   flex-direction: column;
   list-style: none;
+  cursor: pointer;
 
   background-color: #fff;
   border: 1px solid #eee;

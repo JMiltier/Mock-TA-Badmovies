@@ -20,7 +20,7 @@ class Search extends React.Component {
 
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
-    let data = [];
+    let data = [{id: 0, name: 'All'}];
     axios.get('/genres')
       .then(res => {
         res.data.forEach(genre => {
@@ -63,7 +63,6 @@ class Search extends React.Component {
         </select>
         <br/><br/>
         <button onClick={() => this.props.getMovies(this.state.currentGenre)}>Search</button>
-
       </div>
     );
   }

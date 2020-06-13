@@ -40,12 +40,17 @@ app.get('/genres', function(req, res) {
 app.get('/search', function(req, res) {
   // use this endpoint to search for movies by genres (using API key): https://api.themoviedb.org/3/discover/movie
   // and sort them by votes (worst first) using the search parameters in themoviedb API
-  const genreId = req;
-  // console.log(genreId)
+  // const genreId = req.query.id; //query, params
+  // console.log('/search....', genreId);
+  let _url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&vote_count.gte=100`;
+
+  if (req.query.id != 0) {
+    _url = _url + `&with_genres=${req.query.id}`
+  }
 
   const options = {
     method: 'GET',
-    url: `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&vote_count.gte=100&with_genres=28`
+    url: _url
   }
 
   axios(options)
