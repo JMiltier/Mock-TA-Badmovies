@@ -24,9 +24,10 @@ class Search extends React.Component {
       .then(res => {
         res.data.forEach(genre => {
           this.setState({genres: this.state.genres.concat(genre)})
-        })
-        this.setState({
-          currentGenre: this.state.genre[0]
+        }, () => {
+          this.setState({
+            currentGenre: this.state.genre[0]
+          })
         })
       })
       .catch(err => console.error('error in Search.jsx for get movies', err));
@@ -56,7 +57,7 @@ class Search extends React.Component {
 
         <select onChange={this.selectHandler}>
           {this.state.genres.map(genre => {
-            return (<option key={genre.id} name={genre.id} value={genre.name}>{genre.name}</option>)
+            return (<option key={genre.id} value={genre.name}>{genre.name}</option>)
           })}
         </select>
         <br/><br/>

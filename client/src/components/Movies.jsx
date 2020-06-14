@@ -12,12 +12,6 @@ class Movies extends React.Component {
     this.deleteHandle = this.deleteHandle.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      movies: this.props.movies
-    })
-  }
-
   // Make an onClick for each list item. If the movies shown is the search results,
   // onClick add it to the database (do it in the main app, and pass down the function)
   addHandle(movieId) {

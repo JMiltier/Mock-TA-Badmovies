@@ -48,13 +48,22 @@ class App extends React.Component {
   saveMovie(movieId) {
     // same as above but do something diff
     // console.log('about to save movie of id', movieId)
+    let exists = false;
     this.state.movies.forEach(movie => {
       if (movie.id === movieId) {
-        this.setState({
-          favorites: this.state.favorites.concat(movie)
+        this.state.favorites.forEach(fav => {
+          if (fav.id === movieId) {
+            exists = true;
+          }
         })
+        if(!exists) {
+          this.setState({
+            favorites: this.state.favorites.concat(movie)
+          })
+        }
       }
     })
+
   }
 
   deleteMovie() {
